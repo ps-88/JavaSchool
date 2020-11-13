@@ -11,6 +11,7 @@ public class EmployeeUtilsTest {
 
     @Test
     public void sumSalaries() {
+
         List<Employee> employees = List.of(new Employee(30, "Pasha"), new Employee(10, "Sam"));
 
         List<Employee> employees2 = List.of(
