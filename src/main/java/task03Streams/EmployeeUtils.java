@@ -1,11 +1,12 @@
 package task03Streams;
 
-import java.io.File;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
+
+import static java.util.stream.Collectors.toMap;
 
 public class EmployeeUtils {
 
@@ -25,6 +26,15 @@ public class EmployeeUtils {
 
     }
 
+    public static Map<Seniority,List<Employee>> groupBySeniority(List<Employee> employeeList){
+        return employeeList.stream().collect(
+                Collectors.groupingBy(employee -> Seniority.findBySalary(employee.getSalary()))
+        );
+    }
 
+    public static Map<String, Integer> mapNameToSalary(List<Employee> employees) {
+        return employees.stream()
+                .collect(toMap(Employee::getName, Employee::getSalary, (salary , salary2) -> salary2));
+    }
 }
 

@@ -5,7 +5,6 @@ import org.junit.Test;
 
 import java.io.File;
 
-import static org.junit.Assert.*;
 
 public class TextUtilsTest {
     private static File file = new File("text.txt");
