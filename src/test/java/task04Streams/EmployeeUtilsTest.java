@@ -1,4 +1,4 @@
-package task03Streams;
+package task04Streams;
 
 import org.junit.Assert;
 import org.junit.Test;

@@ -1,6 +1,5 @@
-package task03Streams;
+package task04Streams;
 
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package task03Streams;
+package task04Streams;
 
 import java.util.Comparator;
 import java.util.List;
