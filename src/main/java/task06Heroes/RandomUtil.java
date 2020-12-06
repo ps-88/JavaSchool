@@ -6,12 +6,12 @@ import lombok.NoArgsConstructor;
 import java.util.List;
 import java.util.Random;
 
-@NoArgsConstructor (access = AccessLevel.PRIVATE)
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class RandomUtil {
     private static Random random = new Random();
 
     public static int getIntBetween(int min, int max) {
-        return random.nextInt(max-min)+min;
+        return random.nextInt(max - min) + min;
     }
 
     public static <T> T randomItem(List<T> list) {
