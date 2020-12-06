@@ -5,11 +5,11 @@ import task06Heroes.RandomUtil;
 
 import java.lang.reflect.Field;
 
-public class InjectRandomAnnotationObjectConfigure implements ObjectConfigure {
+public class InjectRandomAnnotationObjectConfigure implements ObjectConfigurer {
 
     @Override
     @SneakyThrows
-    public void configure(Object t) {
+    public void configure(Object t,  ApplicationContext context) {
 
         Class<?> implClass = t.getClass();
 

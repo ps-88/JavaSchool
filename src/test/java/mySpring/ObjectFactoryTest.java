@@ -1,6 +1,7 @@
 package mySpring;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;
 
@@ -9,16 +10,24 @@ import static org.junit.Assert.*;
 public class ObjectFactoryTest {
 
 
+    private ApplicationContext context;
+
+    @Before
+    public void setUp() throws Exception {
+        context = new ApplicationContext(new JavaConfig(null, "mySpring"));
+    }
+
     @Test(expected = IllegalArgumentException.class)
     public void injectRandomIntForIncorrectValues() {
-        ObjectFactory.getInstance().createObject(Developer.class);
+
+        context.getBean(Developer.class);
 
     }
 
     @Test
     public void injectRandomIntIsWorking() {
 
-        Soldier soldier = ObjectFactory.getInstance().createObject(Soldier.class);
+        Soldier soldier = context.getBean(Soldier.class);
         Assert.assertTrue(soldier.getPower() < 15 && soldier.getPower() > 10);
     }
 
@@ -26,10 +35,12 @@ public class ObjectFactoryTest {
     public void objectWasCreatedFromConfiguredClass() {
 
         Config config = Mockito.mock(Config.class);
+        Mockito.when(config.getPackageToScan()).thenReturn("mySpring");
         Mockito.when(config.getImpl(SuperHero.class)).then(invocationOnMock -> Batman.class);
 
-        ObjectFactory.getInstance().setConfig(config);
-        SuperHero hero = ObjectFactory.getInstance().createObject(SuperHero.class);
+        ApplicationContext context = new ApplicationContext(config);
+
+        SuperHero hero = context.getBean(SuperHero.class);
         Assert.assertEquals(Batman.class, hero.getClass());
 
     }

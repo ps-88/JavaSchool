@@ -1,3 +1,4 @@
+
 package mySpring;
 
 import java.util.Map;
@@ -10,9 +11,10 @@ public class Main {
                 Cleaner.class, CleanerImpl.class
         );
 
-        ObjectFactory.getInstance().setConfig(new JavaConfig(map,"mySpring"));
+        JavaConfig config = new JavaConfig(map, "mySpring");
+        ApplicationContext context = new ApplicationContext(config);
 
-        IRobot iRobot = ObjectFactory.getInstance().createObject(IRobot.class );
+        IRobot iRobot = context.getBean(IRobot.class);
         iRobot.cleanRoom();
     }
 }
