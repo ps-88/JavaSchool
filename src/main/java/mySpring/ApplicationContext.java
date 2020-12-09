@@ -27,8 +27,13 @@ public class ApplicationContext {
         }
 
         Class<? extends T> implClass = resolveImpl(type);
+        T t = objectFactory.createObject(implClass);
 
-        return objectFactory.createObject(implClass);
+        if (implClass.isAnnotationPresent(Singleton.class)) {
+            cache.put(type, t);
+        }
+
+        return t;
     }
 
     private <T> Class<? extends T> resolveImpl(Class<T> type) {

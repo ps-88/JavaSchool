@@ -44,4 +44,16 @@ public class ObjectFactoryTest {
         Assert.assertEquals(Batman.class, hero.getClass());
 
     }
+
+    @Test
+    public void testSingletonWillBeCreatedOnlyOnce() {
+        MySingleton bean1 = context.getBean(MySingleton.class);
+        MySingleton bean2 = context.getBean(MySingleton.class);
+        context.getBean(MySingleton.class);
+
+        Assert.assertTrue(bean1 == bean2);
+        Assert.assertEquals(1,MySingleton.counter);
+    }
+
+
 }

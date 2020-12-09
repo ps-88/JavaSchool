@@ -1,5 +1,6 @@
 package mySpring;
 
+@Benchmark
 public class CleanerImpl implements Cleaner {
 
     @InjectRandomInt(max = 10,min = 3)

@@ -1,6 +1,6 @@
 package mySpring;
 
-
+@Benchmark
 public class IRobot {
 
 

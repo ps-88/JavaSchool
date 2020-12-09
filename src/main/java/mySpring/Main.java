@@ -7,8 +7,7 @@ public class Main {
     public static void main(String[] args) {
 
         Map<Class<?>, Class<?>> map = Map.of(
-                Speaker.class, ConsoleSpeaker.class,
-                Cleaner.class, CleanerImpl.class
+                Speaker.class, ConsoleSpeaker.class
         );
 
         JavaConfig config = new JavaConfig(map, "mySpring");
