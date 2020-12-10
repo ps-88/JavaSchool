@@ -1,14 +1,27 @@
 package mySpring;
 
+import lombok.SneakyThrows;
 import org.reflections.ReflectionUtils;
 import org.springframework.cglib.proxy.Enhancer;
 import org.springframework.cglib.proxy.InvocationHandler;
 
+import javax.management.MBeanServer;
+import javax.management.ObjectName;
+import java.lang.management.ManagementFactory;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Proxy;
 
 public class BenchmarkProxyConfigurer implements ProxyConfigurer {
+
+    private BenchmarkToggle toggle = new BenchmarkToggle();
+
+    @SneakyThrows
+    public BenchmarkProxyConfigurer(){
+        MBeanServer mBeanServer = ManagementFactory.getPlatformMBeanServer();
+        mBeanServer.registerMBean(toggle, new ObjectName("my_mbeans", "name", "benchmark"));
+    }
+
     @Override
     public Object wrapWithProxy(ApplicationContext context, Object t, Class<?> implClass) {
         if (implClass.isAnnotationPresent(Benchmark.class) ||
@@ -27,8 +40,9 @@ public class BenchmarkProxyConfigurer implements ProxyConfigurer {
     }
 
     private Object getInvocationHandler(Object t, Class<?> implClass, Method method, Object[] args) throws NoSuchMethodException, IllegalAccessException, InvocationTargetException {
-        if (implClass.isAnnotationPresent(Benchmark.class) ||
-                implClass.getMethod(method.getName(), method.getParameterTypes()).isAnnotationPresent(Benchmark.class)) {
+        if (toggle.isEnabled() && (implClass.isAnnotationPresent(Benchmark.class) ||
+                implClass.getMethod(method.getName(), method.getParameterTypes()).isAnnotationPresent(Benchmark.class))) {
+
             System.out.println("*********BENCHMARK STARTED for method" + method.getName());
             Long start = System.nanoTime();
             Object retVal = method.invoke(t, args);

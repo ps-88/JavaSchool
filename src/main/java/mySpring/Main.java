@@ -1,9 +1,12 @@
 
 package mySpring;
 
+import lombok.SneakyThrows;
+
 import java.util.Map;
 
 public class Main {
+    @SneakyThrows
     public static void main(String[] args) {
 
         Map<Class<?>, Class<?>> map = Map.of(
@@ -14,6 +17,12 @@ public class Main {
         ApplicationContext context = new ApplicationContext(config);
 
         IRobot iRobot = context.getBean(IRobot.class);
-        iRobot.cleanRoom();
+
+
+        while (true) {
+            iRobot.cleanRoom();
+            Thread.sleep(3000);
+
+        }
     }
 }
