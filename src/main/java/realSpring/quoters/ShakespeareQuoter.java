@@ -4,11 +4,13 @@ import lombok.Setter;
 import mySpring.InjectByType;
 import mySpring.InjectRandomInt;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 
 @Component
+
 public class ShakespeareQuoter implements Quoter {
 
     @Value("${shake}")

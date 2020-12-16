@@ -1,6 +1,7 @@
 package design_patterns;
 
 import design_patterns.mail.DistributionService;
+import design_patterns.mail.MailMockProducer;
 import lombok.SneakyThrows;
 
 public class Main {
@@ -8,12 +9,7 @@ public class Main {
     @SneakyThrows
     public static void main(String[] args) {
 
-
-        DistributionService distributionService = new DistributionService();
-        while(true){
-        distributionService.sendMail();
-        Thread.sleep(500);
-        }
+        new MailMockProducer().sendMailsForever();
 
     }
 }
